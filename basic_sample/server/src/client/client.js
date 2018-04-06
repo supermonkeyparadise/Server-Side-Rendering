@@ -3,5 +3,5 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import Home from './components/Home';
 
-// div 內，已經有資料了
+// 在執行 bundle.js 前， server 已經 rendering data to browser 了
 ReactDOM.hydrate(<Home />, document.querySelector('#root'));
