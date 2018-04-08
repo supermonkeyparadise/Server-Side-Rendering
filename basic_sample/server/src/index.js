@@ -7,6 +7,8 @@
 // export default
 // const Home = require('./client/components/Home').default;
 
+
+import 'babel-polyfill'; // async await
 import express from 'express';
 
 import renderer from './helpers/renderer';
