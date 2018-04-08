@@ -5,6 +5,7 @@ import ReactDOM from 'react-dom';
 import { BrowserRouter } from 'react-router-dom';
 import { createStore, applyMiddleware } from 'redux';
 import { Provider } from 'react-redux';
+import { renderRoutes } from 'react-router-config';
 import thunk from 'redux-thunk';
 
 import Routes from './Routes';
@@ -16,7 +17,9 @@ const routerJSX = (
   // 當 redux store change，Provider 會通知有 connect 的 component，讓它們重新 render
   <Provider store={store}>
     <BrowserRouter>
-      <Routes />
+      {/* <Routes /> */}
+      {/* renderRoutes 將 array 轉換為 route component */}
+      <div>{renderRoutes(Routes)}</div>
     </BrowserRouter>
   </Provider>
 );
