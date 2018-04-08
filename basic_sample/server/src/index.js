@@ -23,7 +23,12 @@ app.get('*', (req, res) => {
 
   // Some logic to initialize
   // and load data into store
-  console.log(matchRoutes(Routes, req.path));
+
+  // Step1: figure out what component would have rendered
+  // console.log(matchRoutes(Routes, req.path));
+  matchRoutes(Routes, req.path).map(({ route }) => {
+    return route.loadData ? route.loadData() : null;
+  });
 
   res.send(renderer(req, store));
 });

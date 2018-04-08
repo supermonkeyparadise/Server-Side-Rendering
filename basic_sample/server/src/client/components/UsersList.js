@@ -5,11 +5,11 @@ import { fetchUsers } from './../actions';
 
 class UsersList extends Component {
   componentWillMount() {
-    console.log('@@ componentWillMount 被呼叫!!')
+    console.log('@@ componentWillMount 被呼叫!!');
   }
 
   componentDidMount() {
-    console.log('@@ componentDidMount 沒有被呼叫!!')
+    console.log('@@ componentDidMount 沒有被呼叫!!');
     this.props.fetchUsers();
   }
 
@@ -35,4 +35,9 @@ const mapStateToProps = state => {
   };
 };
 
+const loadData = () => {
+  console.log('Im trying to load some data');
+};
+
+export { loadData };
 export default connect(mapStateToProps, { fetchUsers })(UsersList);
