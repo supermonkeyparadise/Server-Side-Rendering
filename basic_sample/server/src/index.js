@@ -7,12 +7,13 @@
 // export default
 // const Home = require('./client/components/Home').default;
 
-
 import 'babel-polyfill'; // async await
 import express from 'express';
+import { matchRoutes } from 'react-router-config';
 
 import renderer from './helpers/renderer';
 import createStore from './helpers/createStore';
+import Routes from './client/Routes';
 
 const app = express();
 app.use(express.static('public'));
@@ -22,6 +23,7 @@ app.get('*', (req, res) => {
 
   // Some logic to initialize
   // and load data into store
+  console.log(matchRoutes(Routes, req.path));
 
   res.send(renderer(req, store));
 });
