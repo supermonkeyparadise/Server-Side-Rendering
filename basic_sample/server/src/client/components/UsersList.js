@@ -14,12 +14,13 @@ class UsersList extends Component {
   }
 
   renderUsers() {
+    console.log('## this.props.users:', this.props.users)
     return this.props.users.map(user => {
       return <li key={user.id}>{user.name}</li>;
     });
   }
 
-  render() {
+  render() {    
     return (
       <div>
         Here's a big list of users
@@ -30,13 +31,16 @@ class UsersList extends Component {
 }
 
 const mapStateToProps = state => {
+  console.log('## state 載入:')
   return {
     users: state.users
   };
 };
 
-const loadData = () => {
-  console.log('Im trying to load some data');
+const loadData = store => {
+  // dispatch 的參數為 func，而不是 js obj ===> redux thunk 登場
+  // return 一個 promise
+  return store.dispatch(fetchUsers());
 };
 
 export { loadData };

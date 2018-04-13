@@ -19,6 +19,7 @@ const app = express();
 app.use(express.static('public'));
 
 app.get('*', (req, res) => {
+  console.log('## 收到 req!!', req.path)
   const store = createStore();
 
   // Some logic to initialize
@@ -26,11 +27,19 @@ app.get('*', (req, res) => {
 
   // Step1: figure out what component would have rendered
   // console.log(matchRoutes(Routes, req.path));
-  matchRoutes(Routes, req.path).map(({ route }) => {
-    return route.loadData ? route.loadData() : null;
+  const promises = matchRoutes(Routes, req.path).map(({ route }) => {
+    return route.loadData ? route.loadData(store) : null;
   });
 
-  res.send(renderer(req, store));
+  console.log('@@ trace 1')
+  // 當所有 request 都回來了，才做解析
+  // 這裡也表示 reducer 都更新完畢了！！
+  Promise.all(promises).then(() => {
+    // 到這邊為止，只是更新 reducer 的資料
+    console.log('@@ trace 2')
+
+    res.send(renderer(req, store));
+  });
 });
 
 app.listen(3000, () => {
