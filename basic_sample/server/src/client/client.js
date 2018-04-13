@@ -11,7 +11,11 @@ import thunk from 'redux-thunk';
 import Routes from './Routes';
 import reducers from './reducers';
 
-const store = createStore(reducers, {}, applyMiddleware(thunk));
+const store = createStore(
+  reducers,
+  window.INITIAL_STATE,
+  applyMiddleware(thunk)
+);
 
 const routerJSX = (
   // 當 redux store change，Provider 會通知有 connect 的 component，讓它們重新 render

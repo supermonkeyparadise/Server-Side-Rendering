@@ -5,11 +5,12 @@ import { fetchUsers } from './../actions';
 
 class UsersList extends Component {
   componentWillMount() {
-    console.log('@@ componentWillMount 被呼叫!!');
+    console.log('## componentWillMount 被呼叫!!');
   }
 
+  // ＊＊有存在的必要，要考慮到 router 的切換＊＊
   componentDidMount() {
-    console.log('@@ componentDidMount 沒有被呼叫!!');
+    console.log('## componentDidMount 沒有被呼叫!!');
     this.props.fetchUsers();
   }
 
