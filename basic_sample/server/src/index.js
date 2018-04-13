@@ -35,7 +35,7 @@ app.get('*', (req, res) => {
   // 當所有 request 都回來了，才做解析
   // 這裡也表示 reducer 都更新完畢了！！
   Promise.all(promises).then(() => {
-    // 到這邊為止，只是更新 reducer 的資料
+    // 到這邊為止，只是更新 reducer 的資料，store 裡面裝了滿滿的資料
     console.log('@@ trace 2')
 
     res.send(renderer(req, store));

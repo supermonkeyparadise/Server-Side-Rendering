@@ -14,13 +14,13 @@ class UsersList extends Component {
   }
 
   renderUsers() {
-    console.log('## this.props.users:', this.props.users)
+    console.log('## this.props.users:', this.props.users);
     return this.props.users.map(user => {
       return <li key={user.id}>{user.name}</li>;
     });
   }
 
-  render() {    
+  render() {
     return (
       <div>
         Here's a big list of users
@@ -31,7 +31,7 @@ class UsersList extends Component {
 }
 
 const mapStateToProps = state => {
-  console.log('## state 載入:')
+  console.log('## state 載入:');
   return {
     users: state.users
   };
@@ -43,5 +43,7 @@ const loadData = store => {
   return store.dispatch(fetchUsers());
 };
 
-export { loadData };
-export default connect(mapStateToProps, { fetchUsers })(UsersList);
+export default {
+  component: connect(mapStateToProps, { fetchUsers })(UsersList),
+  loadData
+};
