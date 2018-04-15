@@ -3,6 +3,7 @@ import React from 'react';
 
 import HomePage from './pages/HomePage';
 import UsersListPage from './pages/UsersListPage';
+import App from './App';
 
 // export default () => {
 //   return (
@@ -17,12 +18,17 @@ import UsersListPage from './pages/UsersListPage';
 // for SSR
 export default [
   {
-    ...HomePage,
-    path: '/',
-    exact: true
-  },
-  {
-    ...UsersListPage,
-    path: '/users'
+    ...App,
+    routes: [
+      {
+        ...HomePage,
+        path: '/',
+        exact: true
+      },
+      {
+        ...UsersListPage,
+        path: '/users'
+      }
+    ]
   }
 ];
