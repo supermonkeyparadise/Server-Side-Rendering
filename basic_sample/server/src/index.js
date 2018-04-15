@@ -10,16 +10,29 @@
 import 'babel-polyfill'; // async await
 import express from 'express';
 import { matchRoutes } from 'react-router-config';
+import proxy from 'express-http-proxy';
 
 import renderer from './helpers/renderer';
 import createStore from './helpers/createStore';
 import Routes from './client/Routes';
 
 const app = express();
+const API_URL = 'http://react-ssr-api.herokuapp.com';
+
+// 當有 request 要存取 /api，自動導向 API_ULR
+app.use(
+  '/api',
+  proxy(API_URL, {
+    proxyReqOptDecorator(opts) {
+      opts.header['x-forwarded-host'] = 'localhost:3000';
+      return opts;
+    }
+  })
+);
 app.use(express.static('public'));
 
 app.get('*', (req, res) => {
-  console.log('## 收到 req!!', req.path)
+  console.log('## 收到 req!!', req.path);
   const store = createStore();
 
   // Some logic to initialize
@@ -31,12 +44,12 @@ app.get('*', (req, res) => {
     return route.loadData ? route.loadData(store) : null;
   });
 
-  console.log('@@ trace 1')
+  console.log('@@ trace 1');
   // 當所有 request 都回來了，才做解析
   // 這裡也表示 reducer 都更新完畢了！！
   Promise.all(promises).then(() => {
     // 到這邊為止，只是更新 reducer 的資料，store 裡面裝了滿滿的資料
-    console.log('@@ trace 2')
+    console.log('@@ trace 2');
 
     res.send(renderer(req, store));
   });
