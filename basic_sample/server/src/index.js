@@ -17,9 +17,10 @@ import createStore from './helpers/createStore';
 import Routes from './client/Routes';
 
 const app = express();
-const API_URL = 'https://react-ssr-api.herokuapp.com';
+const API_URL = 'http://react-ssr-api.herokuapp.com';
 
 // 當有 request 要存取 /api，自動導向 API_ULR
+// x-forwarded-host ===> redirect user to localhost:3000
 app.use(
   '/api',
   proxy(API_URL, {
