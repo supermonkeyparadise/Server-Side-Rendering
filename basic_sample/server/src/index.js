@@ -20,7 +20,8 @@ const app = express();
 const API_URL = 'http://react-ssr-api.herokuapp.com';
 
 // 當有 request 要存取 /api，自動導向 API_ULR
-// x-forwarded-host ===> redirect user to localhost:3000
+// x-forwarded-host ===> redirect user to localhost:3000  (好像只有 login logout 會使用到)
+// ajax 請求，會忽略 x-forwarded-host
 app.use(
   '/api',
   proxy(API_URL, {
