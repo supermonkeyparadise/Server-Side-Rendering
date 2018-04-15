@@ -10,6 +10,8 @@ export default req => {
     headers: { cookie: req.get('cookie') || '' }
   });
 
+  console.log('## cookie:', req.get('cookie'))
+
   const store = createStore(
     reducers,
     {},
