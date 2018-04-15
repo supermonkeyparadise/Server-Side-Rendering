@@ -24,7 +24,7 @@ app.use(
   '/api',
   proxy(API_URL, {
     proxyReqOptDecorator(opts) {
-      opts.header['x-forwarded-host'] = 'localhost:3000';
+      opts.headers['x-forwarded-host'] = 'localhost:3000';
       return opts;
     }
   })
@@ -33,7 +33,7 @@ app.use(express.static('public'));
 
 app.get('*', (req, res) => {
   console.log('## 收到 req!!', req.path);
-  const store = createStore();
+  const store = createStore(req);
 
   // Some logic to initialize
   // and load data into store
