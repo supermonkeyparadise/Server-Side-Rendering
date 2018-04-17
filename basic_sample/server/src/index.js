@@ -26,6 +26,7 @@ app.use(
   '/api',
   proxy(API_URL, {
     proxyReqOptDecorator(opts) {
+      console.log('## proxy 啟動！！')
       opts.headers['x-forwarded-host'] = 'localhost:3000';
       return opts;
     }
