@@ -43,9 +43,18 @@ app.get('*', (req, res) => {
 
   // Step1: figure out what component would have rendered
   // console.log(matchRoutes(Routes, req.path));
-  const promises = matchRoutes(Routes, req.path).map(({ route }) => {
-    return route.loadData ? route.loadData(store) : null;
-  });
+  const promises = matchRoutes(Routes, req.path)
+    .map(({ route }) => {
+      return route.loadData ? route.loadData(store) : null;
+    })
+    .map(promise => {
+      if (promise) {
+        return new Promise((resolve, reject) => {
+          // 不管成功或失敗
+          promise.then(resolve).catch(resolve);
+        });
+      }
+    });
 
   console.log('@@ trace 1');
   // 當所有 request 都回來了，才做解析
