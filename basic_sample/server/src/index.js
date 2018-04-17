@@ -26,7 +26,7 @@ app.use(
   '/api',
   proxy(API_URL, {
     proxyReqOptDecorator(opts) {
-      console.log('## proxy 啟動！！')
+      console.log('## proxy 啟動！！');
       opts.headers['x-forwarded-host'] = 'localhost:3000';
       return opts;
     }
@@ -53,8 +53,14 @@ app.get('*', (req, res) => {
   Promise.all(promises).then(() => {
     // 到這邊為止，只是更新 reducer 的資料，store 裡面裝了滿滿的資料
     console.log('@@ trace 2');
+    const context = {};
+    const content = renderer(req, store, context);
 
-    res.send(renderer(req, store));
+    if (context.notFound) {
+      res.status(404);
+    }
+
+    res.send(content);
   });
 });
 

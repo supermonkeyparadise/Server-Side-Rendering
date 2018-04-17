@@ -7,10 +7,10 @@ import serialize from 'serialize-javascript';
 
 import Routes from './../client/Routes';
 
-export default (req, store) => {
+export default (req, store, context) => {
   const content = renderToString(
     <Provider store={store}>
-      <StaticRouter location={req.path} context={{}}>
+      <StaticRouter location={req.path} context={context}>
         {/* <Routes /> */}
         {/* renderRoutes 將 array 轉換為 route component */}
         <div>{renderRoutes(Routes)}</div>
