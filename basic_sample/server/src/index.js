@@ -65,6 +65,11 @@ app.get('*', (req, res) => {
     const context = {};
     const content = renderer(req, store, context);
 
+    console.log('## context:', context);
+    if (context.url) {
+      console.log('## gg')
+      return res.redirect(301, context.url);
+    }
     if (context.notFound) {
       res.status(404);
     }
