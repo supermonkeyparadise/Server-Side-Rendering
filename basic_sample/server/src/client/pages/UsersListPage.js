@@ -22,13 +22,20 @@ class UsersList extends Component {
     });
   }
 
+  head() {
+    return (
+      // react-helmet
+      <Helmet>
+        <title>{`${this.props.users.length} Users Loads`}</title>
+        <meta property="og:title" content="Users App" />
+      </Helmet>
+    );
+  }
+
   render() {
     return (
       <div>
-        <Helmet>
-          <title>Users App</title>
-          <meta property="og:title" content="Users App" />
-        </Helmet>
+        {this.head()}
         Here's a big list of users
         <ul>{this.renderUsers()}</ul>
       </div>
