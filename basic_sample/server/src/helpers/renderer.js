@@ -4,6 +4,7 @@ import { StaticRouter } from 'react-router-dom';
 import { Provider } from 'react-redux';
 import { renderRoutes } from 'react-router-config';
 import serialize from 'serialize-javascript';
+import { Helmet } from 'react-helmet';
 
 import Routes from './../client/Routes';
 
@@ -21,10 +22,14 @@ export default (req, store, context) => {
   // There is no time allowed for completing the data request.
   // 在 SSR 根本不會呼叫 componentDidMount method
 
+  const helmet = Helmet.renderStatic();
+
   // client 自行 download bundle.js
   return `
     <html>
       <head>
+      ${helmet.title.toString()}
+      ${helmet.meta.toString()}
       <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0-beta/css/materialize.min.css">
       </head>
       <body>
